@@ -130,7 +130,8 @@ function buildTrayMenu() {
     { type: 'separator' },
     { label: 'Open Dashboard', click: () => { mainWindow ? mainWindow.show() : createWindow() } },
     { label: 'Generate Report', click: async () => {
-        const today = new Date().toISOString().slice(0, 10)
+        const d = new Date()
+        const today = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
         await summaryGenerator.generateForDate(today)
         mainWindow?.webContents.send('report-generated', today)
       }
@@ -154,14 +155,19 @@ function updateTrayTooltip() {
 function registerIpcHandlers() {
   // ── Today ─────────────────────────────────────────────────────────────────
   ipcMain.handle('get-today-summary', async () => {
-    const today = new Date().toISOString().slice(0, 10)
+    const d = new Date()
+    const today = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
     const report = db.getReport(today)
     return report ? report.content : null
   })
 
   ipcMain.handle('generate-report', async (_e, date) => {
-    const d = date || new Date().toISOString().slice(0, 10)
-    return await summaryGenerator.generateForDate(d)
+    let dStr = date
+    if (!dStr) {
+      const d = new Date()
+      dStr = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+    }
+    return await summaryGenerator.generateForDate(dStr)
   })
 
   ipcMain.handle('save-report', async (_e, date, content) => {

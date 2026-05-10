@@ -8,7 +8,7 @@ const fs        = require('fs')
 
 const { app } = require('electron')
 
-const DB_DIR  = path.join(app.getPath('userData'), 'devtracker')
+const DB_DIR  = app ? path.join(app.getPath('userData'), 'devtracker') : path.join(__dirname, '..', 'data')
 const DB_PATH = path.join(DB_DIR, 'devtracker.db')
 
 /** @type {import('sql.js').Database} */

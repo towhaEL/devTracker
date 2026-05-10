@@ -12,7 +12,10 @@ function firstDayOfMonth(year, month) {
 function toDateStr(year, month, day) {
   return `${year}-${String(month + 1).padStart(2,'0')}-${String(day).padStart(2,'0')}`
 }
-function todayStr() { return new Date().toISOString().slice(0, 10) }
+function todayStr() {
+  const d = new Date()
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+}
 
 const MONTHS = ['January','February','March','April','May','June',
   'July','August','September','October','November','December']

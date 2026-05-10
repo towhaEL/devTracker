@@ -32,7 +32,8 @@ async function collectFromRepo(repoPath) {
       filesChanged = diff.files.length
     } catch { filesChanged = 0 }
 
-    const dateStr = new Date(timestamp).toISOString().slice(0, 10)
+    const d = new Date(timestamp)
+    const dateStr = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
     const sessions = db.getSessionsForDate(dateStr)
     let bestSession = null, bestDiff = Infinity
 
