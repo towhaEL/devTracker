@@ -1,0 +1,219 @@
+/* ─── Google Fonts — must come before all other rules ──────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Base ──────────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+:root {
+  --accent:        #00d2ff;
+  --accent-dim:    rgba(0, 210, 255, 0.15);
+  --accent-glow:   0 0 24px rgba(0, 210, 255, 0.25);
+  --surface-950:   #07090f;
+  --surface-900:   #0d1117;
+  --surface-800:   #131922;
+  --surface-700:   #1a2332;
+  --surface-600:   #223044;
+  --border-color:  #1e2d3d;
+  --text-muted:    #6b7a90;
+  --radius:        12px;
+}
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--surface-900);
+  color: #e2e8f0;
+  overflow: hidden;
+}
+
+/* ─── Scrollbar ──────────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #2c3e52; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #00d2ff44; }
+
+/* ─── Selection ─────────────────────────────────────────────────────────────── */
+::selection { background: rgba(0,210,255,0.2); color: #fff; }
+
+/* ─── Title bar drag region (frameless window) ──────────────────────────────── */
+.drag-region { -webkit-app-region: drag; }
+.no-drag      { -webkit-app-region: no-drag; }
+
+/* ─── Glass Card ─────────────────────────────────────────────────────────────── */
+.glass {
+  background: rgba(19, 25, 34, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+}
+
+/* ─── Glow Accent ────────────────────────────────────────────────────────────── */
+.accent-glow { box-shadow: var(--accent-glow); }
+
+/* ─── Session pulse dot ──────────────────────────────────────────────────────── */
+.session-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 8px #22c55e;
+  animation: sessionPulse 2s ease-in-out infinite;
+}
+@keyframes sessionPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.6; transform: scale(1.3); }
+}
+
+/* ─── Report / Markdown editor ───────────────────────────────────────────────── */
+.report-textarea {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  line-height: 1.75;
+  background: var(--surface-950);
+  color: #cbd5e1;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 20px;
+  resize: none;
+  width: 100%;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+}
+.report-textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(0,210,255,0.15);
+}
+
+/* ─── Tab nav ─────────────────────────────────────────────────────────────────── */
+.tab-btn {
+  display: flex; align-items: center; gap: 10px;
+  width: 100%; padding: 10px 14px; border-radius: 10px;
+  font-size: 14px; font-weight: 500;
+  color: var(--text-muted);
+  background: transparent; border: none;
+  cursor: pointer; text-align: left;
+  transition: background 0.15s, color 0.15s;
+}
+.tab-btn:hover { background: rgba(255,255,255,0.05); color: #e2e8f0; }
+.tab-btn.active {
+  background: rgba(0,210,255,0.12);
+  color: var(--accent);
+  box-shadow: inset 2px 0 0 var(--accent);
+}
+
+/* ─── Primary button ─────────────────────────────────────────────────────────── */
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 9px 18px; border-radius: 8px;
+  background: var(--accent); color: #07090f;
+  font-size: 13px; font-weight: 600;
+  border: none; cursor: pointer;
+  transition: opacity 0.15s, transform 0.1s, box-shadow 0.15s;
+  box-shadow: 0 0 0 0 rgba(0,210,255,0);
+}
+.btn-primary:hover {
+  opacity: 0.9;
+  box-shadow: 0 0 16px rgba(0,210,255,0.35);
+}
+.btn-primary:active { transform: scale(0.97); }
+.btn-primary:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* ─── Ghost button ───────────────────────────────────────────────────────────── */
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 14px; border-radius: 8px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border-color);
+  color: #94a3b8; font-size: 13px; font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+.btn-ghost:hover { background: rgba(255,255,255,0.09); color: #e2e8f0; border-color: #2c3e52; }
+.btn-ghost:active { transform: scale(0.97); }
+
+/* ─── Input ──────────────────────────────────────────────────────────────────── */
+.input {
+  width: 100%; padding: 9px 13px; border-radius: 8px;
+  background: var(--surface-800); color: #e2e8f0;
+  border: 1px solid var(--border-color);
+  font-size: 13px; outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.input:focus { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(0,210,255,0.12); }
+.input::placeholder { color: var(--text-muted); }
+
+/* ─── Badge ──────────────────────────────────────────────────────────────────── */
+.badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 3px 10px; border-radius: 999px;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.04em;
+}
+.badge-green { background: rgba(34,197,94,0.15); color: #4ade80; }
+.badge-teal  { background: rgba(0,210,255,0.15);  color: var(--accent); }
+.badge-muted { background: rgba(107,122,144,0.15); color: var(--text-muted); }
+
+/* ─── Calendar ───────────────────────────────────────────────────────────────── */
+.cal-day {
+  width: 34px; height: 34px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  color: var(--text-muted);
+}
+.cal-day:hover   { background: rgba(255,255,255,0.07); color: #e2e8f0; }
+.cal-day.has-report { color: var(--accent); font-weight: 600; }
+.cal-day.selected   { background: rgba(0,210,255,0.18); color: var(--accent); }
+.cal-day.today      { border: 1px solid rgba(0,210,255,0.35); }
+.cal-day.empty      { cursor: default; }
+.cal-day.empty:hover { background: transparent; }
+
+/* ─── Toggle Switch ─────────────────────────────────────────────────────────── */
+.toggle-track {
+  width: 40px; height: 22px; border-radius: 999px;
+  background: var(--surface-600); position: relative;
+  cursor: pointer; transition: background 0.2s;
+  flex-shrink: 0;
+}
+.toggle-track.on { background: var(--accent); }
+.toggle-thumb {
+  position: absolute; top: 3px; left: 3px;
+  width: 16px; height: 16px; border-radius: 50%;
+  background: #fff; transition: transform 0.2s;
+}
+.toggle-track.on .toggle-thumb { transform: translateX(18px); }
+
+/* ─── Slider ─────────────────────────────────────────────────────────────────── */
+input[type=range] {
+  -webkit-appearance: none; width: 100%; height: 4px;
+  border-radius: 2px; background: var(--surface-600); outline: none;
+}
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 16px; height: 16px;
+  border-radius: 50%; background: var(--accent);
+  cursor: pointer; box-shadow: 0 0 8px rgba(0,210,255,0.4);
+}
+
+/* ─── Fade-in animation ─────────────────────────────────────────────────────── */
+.fade-in { animation: fadeIn 0.25s ease-out; }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Spin ────────────────────────────────────────────────────────────────────── */
+@keyframes spin { to { transform: rotate(360deg); } }
+.spin { animation: spin 1s linear infinite; }
+
+/* ─── Copied checkmark ───────────────────────────────────────────────────────── */
+@keyframes popIn {
+  0%   { transform: scale(0); }
+  70%  { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+.pop-in { animation: popIn 0.2s ease-out; }

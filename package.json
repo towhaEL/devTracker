@@ -1,0 +1,55 @@
+{
+  "name": "devtracker",
+  "version": "1.0.0",
+  "description": "Auto-track coding sessions and generate daily work summaries",
+  "main": "electron/main.js",
+  "author": "",
+  "license": "MIT",
+  "scripts": {
+    "dev": "concurrently -k -n VITE,ELECTRON -c cyan,green \"vite\" \"wait-on http://localhost:5173 && cross-env NODE_ENV=development electron .\"",
+    "build": "vite build",
+    "dist": "npm run build && electron-builder"
+  },
+  "dependencies": {
+    "chokidar": "^3.6.0",
+    "simple-git": "^3.27.0",
+    "sql.js": "^1.14.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.1",
+    "autoprefixer": "^10.4.20",
+    "concurrently": "^9.1.0",
+    "cross-env": "^7.0.3",
+    "electron": "^33.4.11",
+    "electron-builder": "^25.1.7",
+    "postcss": "^8.4.49",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "tailwindcss": "^3.4.16",
+    "vite": "^6.0.3",
+    "wait-on": "^8.0.1"
+  },
+  "build": {
+    "appId": "com.devtracker.app",
+    "productName": "DevTracker",
+    "files": [
+      "dist/**/*",
+      "electron/**/*",
+      "assets/**/*"
+    ],
+    "directories": {
+      "output": "release"
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "assets/icon.ico"
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "assets/icon.icns"
+    },
+    "linux": {
+      "target": "AppImage"
+    }
+  }
+}
